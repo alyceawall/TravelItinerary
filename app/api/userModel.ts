@@ -1,8 +1,6 @@
 import mongoose from 'mongoose';
 
-var Schema = mongoose.Schema;
-
-var userSchema = new Schema({
+const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -23,17 +21,18 @@ var userSchema = new Schema({
         unique: true
       },
       itineraries: [{
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Itinerary'
       }],
       friends: [{
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
       }]
     });
 
 
 // Create the userModel to be used by database
-const userModel = mongoose.model ('Users', userSchema)
-// Make the model and schema available
+const userModel = mongoose.models.users || mongoose.model('users', userSchema);
+
+// Export the model
 export default userModel;

@@ -293,7 +293,7 @@ async function getUserData() {
     try {
         const res = await fetch(
 			//'http://cs-vm-02.cs.mtholyoke.edu:31600/api'
-			'http://localhost:31600/api',
+			'http://localhost:31600/users',
 			);
         console.log('Frontend Fetch: Response status:', res.status);
         const data = await res.json();
