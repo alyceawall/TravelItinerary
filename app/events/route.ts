@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { NextResponse } from 'next/server';
-import testModel from './db';
-import userModel from './userModel';
+import testModel from '../api/db';
+import eventModel from '../api/eventModel';
 
 // Gets all language data from the DB
 export async function GET(request: Request) {
@@ -14,17 +14,16 @@ export async function GET(request: Request) {
     // Log the result to the console for debugging
     console.log('API Route: After query, result:', testData);
 
-    const userData = await userModel.find({});
-    console.log('Data from Users collection:', userData);
+    const eventData = await eventModel.find({});
+    console.log('Data from events collection:', eventData);
 
-    
     // const combinedData = {
     //     testData: testData,
-    //     userData: userData,
+    //     eventData: eventData,
     // };
 
     // Creates a HTTP response object using userData OR {} as the json
-    return NextResponse.json(userData || {});
+    return NextResponse.json(eventData || {});
   } catch (error) {
     console.error('Error querying the database:', error); // Log the specific error
     return NextResponse.error();
