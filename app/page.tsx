@@ -180,6 +180,7 @@ function TripEvent({eventName, eventDate, eventTime, eventText, eventParticipant
 
 	return (
 		<div className="itinerary-box">
+				<button className="button" style={{position:"absolute", top:"20px", right:"20px"}}>Edit</button>
 
 				<h2 style={{display: "inline-block", marginRight:"30px"}}>{eventName}</h2>
 				
