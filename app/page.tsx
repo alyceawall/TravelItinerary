@@ -260,12 +260,9 @@ function NewEventScreen() {
 
 		<div>
 			<h1>Add new event</h1>
-			<select>
-				<option value="accomodation">Hotel or other accomodation</option>
-				<option value="travel">Plane, train, or automobile</option>
-				<option value="event">Other event</option>
-			</select>
 
+			<p>Title:</p>
+			<input></input>
 			<p>Date:</p>
 			<input type="date"></input>
 			<p>End date (optional):</p>
@@ -285,6 +282,37 @@ function NewEventScreen() {
 		</div>
 	);
 	}
+
+function EditEventScreen() {
+	return (
+
+		<div>
+			<h1>Add new event</h1>
+
+			<p>Title:</p>
+			<input></input>
+			<p>Date:</p>
+			<input type="date"></input>
+			<p>End date (optional):</p>
+			<input type="date"></input>
+			<p>Start time (optional):</p>
+			<input type="time"></input>
+			<p>End time (optional):</p>
+			<input type="time"></input>
+			<p>Address/location (optional):</p>
+			<input></input>
+			<p>Website for managing event (optional):</p>
+			<input></input>
+			<p>Other notes (optional):</p>
+			<textarea></textarea>
+
+			<button>Submit</button>
+		</div>
+	);
+	}
+
+
+	
 // Avoid caching, so that hot updates work as expected
 export const dynamic = 'force-dynamic'
 // Get the language data from the database.
