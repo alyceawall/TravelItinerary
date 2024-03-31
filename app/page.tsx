@@ -1,22 +1,25 @@
-'use client';
+//'use client';
 
 import './style.css';
+import EventParticipantsManager from './client/eventParticipantsManager'
+import ParticipantsBox from './client/participantsBox'
+import {AddNameBubble, NameBubble} from './client/participantHelpers'
 
-import {useState} from 'react';
+//import {useState} from 'react';
 
 
-var participantsArray = ["Joe", "Dave", "Carlos", "John"];
+var participantsArray = [];
 
 
-export default function Page() {
+export default async function Page() {
 	return (	
 		<ItineraryScreen itineraryName={"Joe's BBQ Bash"}/>
-	
   );
 	
 	//<HomeScreen/>    <SearchScreen/>		<ItineraryScreen itineraryName={"Joe's BBQ Bash"}/>  <NewEventScreen/>
 
 }
+
 
 /* --------
 HOME SCREEN
@@ -86,7 +89,13 @@ ITINERARY FOCUS
 	participants. 
 
 */
-function ItineraryScreen({itineraryName}) {
+
+async function ItineraryScreen({itineraryName}) {
+	//note: right now, more than one getData() will cause an error
+	const users = await getUserData();
+	const events = await getEventData();
+	let participantsArray = users.map(user => user.name);
+
 	return (
 		<div>
 			<div>
@@ -96,15 +105,13 @@ function ItineraryScreen({itineraryName}) {
 					<button className="button">Back</button>
 					<h1>{itineraryName}</h1>
 				</div>
-
 				<ParticipantsBox participants={participantsArray} />
 				
 			</div>
 
 			{/** the part which contains all the events */}
 
-			<div className="body-scroll" style={{width:"65%"}}> 
-
+			<div className="body-scroll" style={{width:"65%"}}>  
 				<TripEvent
 					eventName = {"Debby's flight"}
 					eventDate = {"March 8th"}
@@ -154,19 +161,6 @@ function ItineraryScreen({itineraryName}) {
 }
 
 /**
- * Creates a bubble containing the name, as well as an X to delete it presumably.
- */
-function NameBubble({name}) {
-	return (
-		<div className="name-bubble-not-interactive">
-			<p style={{display: "inline-block"}}>{name}</p>
-			<button className="x-button">X</button>
-		</div>
-	);
-}
-
-
-/**
  * Creates a bubble containing the name, but is a display element only. 
  */
 
@@ -177,120 +171,6 @@ function NameBubbleNoedit({name}) {
 		</div>
 	);
 }
-
-/*
-	Creates the side box on the Itinerary screen that shows all participants and allows you to add new
-	ones to the itinerary. 
-*/
-function ParticipantsBox({participants}) {
-	// Turns an array of strings into a displayable group of NameBubbles
-	const [isAddingParticipants, setIsAddingParticipants] = useState(false);
-	let addButton = <AddNameBubble onButtonClick={() => setIsAddingParticipants(true)}/>;
-	let selectionBox = <ParticipantSelection pool={participantsArray} onButtonClick={() => setIsAddingParticipants(false)}/>;
-
-
-	const participantBubbles = participants.map((element, i) =>
-	<NameBubble key={i} name={element}></NameBubble> 
-	)
-
-	// Display those
-return (
-	<div className="users-box">
-		<h3 style={{padding:"10px"}}>Participants</h3>
-		{participantBubbles}
-		
-		<div>
-		{isAddingParticipants ?  selectionBox : addButton}
-		</div>
-
-	</div>
-	
-	
-);
-
-
-}
-
-/*
-	Creates a simpler array of name bubbles (with X'es), ideal for attaching to an
-	event or itinerary to indicate who's already there. 
-*/
-function NamesToBubbles({participants}) {
-	// potential: using style = {{background-color: SOMETHING}} to give each participant a unique color
-	return (
-		participants.map((element, i) =>
-		<NameBubble key={i} name={element}></NameBubble> )
-	);
-}
-
-/*
-
-Manages and displays the participants for a particular event.
-Controls the addition of new participants, the deletion of old participants.
-TODO: Currently displayed participants should probably be a state.
-
-*/
-function EventParticipantsManager({eventParticipants}) {
-	const [isAddingParticipants, setIsAddingParticipants] = useState(false);
-	let addButton = <AddNameBubble onButtonClick={() => setIsAddingParticipants(true)}/>;
-	let selectionBox = <ParticipantSelection pool={participantsArray} onButtonClick={() => setIsAddingParticipants(false)}/>;
-
-	
-	// isActive={activeIndex === 0}
-	// onButtonClick={() => setIsAddingParticipants(true)}
-
-	// {cond ? <A /> : <B />}
-
-	return (
-		<span>
-			<NamesToBubbles participants={eventParticipants}/> 
-			{isAddingParticipants ?  selectionBox : addButton}
-		</span>
-
-	);
-
-}
-
-/**
- * Creates a bubble with a little plus, implying that the user can click on it to add
- * a new participant. 
- */
-function AddNameBubble({onButtonClick}) {
-	return (
-		<button className="name-bubble-interactive" onClick={onButtonClick}>
-			<p style={{display: "inline-block"}}>+</p>
-		</button>
-	);
-}
-
-
-/*
-	Renders a selection box containing all participants in the unselected pool, 
-	as well as an OK button to add a selected participant to the pool for that event.
-*/
-function ParticipantSelection({pool, onButtonClick}) {
-	// Maps the pool of unselected users to selection boxes.
-	const selectionValues = pool.map(
-		(element, i) =>
-		<option  className="name-bubble-not-interactive" key={i} value={element}>{element}</option> 
-	)
-	return (
-		<div style={{display: "inline-block"}}>
-
-			<select>
-				<option value="none"></option>
-				{selectionValues}
-			</select>
-
-			<button className="name-bubble-interactive" onClick={onButtonClick}>
-				<p style={{display: "inline-block"}}>OK</p>
-			</button>
-			
-		</div>
-	)
-}
-
-
 
 /*
 	Displays a single event, containing salient information and a link to the rest of the data. 
@@ -408,11 +288,12 @@ function NewEventScreen() {
 export const dynamic = 'force-dynamic'
 // Get the language data from the database.
 // Returns a json object.
-async function getData() {
+
+async function getUserData() {
     try {
         const res = await fetch(
-			'http://cs-vm-02.cs.mtholyoke.edu:31600/api'
-			//'http://localhost:31600/api'
+			//'http://cs-vm-02.cs.mtholyoke.edu:31600/api'
+			'http://localhost:31600/users',
 			);
         console.log('Frontend Fetch: Response status:', res.status);
         const data = await res.json();
@@ -422,5 +303,21 @@ async function getData() {
         console.error('Frontend Fetch: Error fetching data:', error);
         throw error;
     }
-
 }
+
+async function getEventData() {
+    try {
+        const res = await fetch(
+			//'http://cs-vm-02.cs.mtholyoke.edu:31600/api'
+			'http://localhost:31600/events',
+			);
+        console.log('Frontend Fetch: Response status:', res.status);
+        const data = await res.json();
+        console.log('Frontend Fetch: Data from server:', data);
+        return data;
+    } catch (error) {
+        console.error('Frontend Fetch: Error fetching data:', error);
+        throw error;
+    }
+}
+

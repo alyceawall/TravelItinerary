@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 
-// Define the schema for the data
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -33,6 +32,7 @@ const userSchema = new mongoose.Schema({
 
 
 // Create the userModel to be used by database
-const userModel = mongoose.model ('Users', userSchema);
-// Make the model and schema available
+const userModel = mongoose.models.users || mongoose.model('users', userSchema);
+
+// Export the model
 export default userModel;
