@@ -2,6 +2,8 @@ import '../../../style.css';
 //import EventParticipantsManager from '../../../client/eventParticipantsManager'
 //import ParticipantsBox from '../../../client/participantsBox'
 
+import SubmitButton from '../../../client/editEventClient'
+
 
 
 
@@ -40,7 +42,7 @@ function NewEventScreen() {
 			<p>Other notes (optional):</p>
 			<textarea></textarea>
 
-			<button>Submit</button>
+			<SubmitButton/>
 		</div>
 	);
 	}

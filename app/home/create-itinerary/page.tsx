@@ -3,6 +3,7 @@ import EventParticipantsManager from '../../client/eventParticipantsManager'
 import ParticipantsBox from '../../client/participantsBox'
 import {AddNameBubble, NameBubble} from '../../client/participantHelpers'
 
+import SubmitButton from '../../client/createItineraryClient'
 
 export default async function Page() {
 	return (	
@@ -24,7 +25,7 @@ function NewItineraryScreen() {
 			<p>Participants:</p>
 			<EventParticipantsManager eventParticipants={["JohnDoe"]}/>
 
-			<button>Submit</button>
+			<SubmitButton/>
 		</div>
 	);
 	}

@@ -1,7 +1,6 @@
 import '../../../style.css';
 
-
-
+import SubmitButton from '../../../client/editEventClient'
 
 export default async function Page() {
 	return (	
@@ -35,7 +34,7 @@ function EditEventScreen() {
 			<p>Other notes (optional):</p>
 			<textarea></textarea>
 
-			<button>Submit</button>
+			<SubmitButton/>
 		</div>
 	);
 }
