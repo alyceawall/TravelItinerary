@@ -2,7 +2,7 @@ import '../../style.css';
 import EventParticipantsManager from '../../client/eventParticipantsManager'
 import ParticipantsBox from '../../client/participantsBox'
 
-
+import {AddNewEvent, BackToHome, EditEvent} from '../../client/itineraryScreenClients'
 
 
 export default async function Page() {
@@ -39,7 +39,7 @@ async function ItineraryScreen({itineraryName}) {
 
 				{/** The header -- contains a back to home screen button, plus the name */}
 				<div className="header-banner">
-					<button className="button">Back</button>
+					<BackToHome/>
 					<h1>{itineraryName}</h1>
 				</div>
 				<ParticipantsBox participants={participantsArray} />
@@ -89,7 +89,7 @@ async function ItineraryScreen({itineraryName}) {
 
 			{/** the footer, containing a button to add new, and a background to make it a little more visible */}
 			<div style={{position:"fixed", bottom:"0px", width:"100%", height:"150px", backgroundColor:"#111111aa"}}>
-				<button className="new-event-button">Add new event</button>
+				<AddNewEvent/>
 			</div>
 
 		</div>
@@ -105,7 +105,7 @@ function TripEvent({eventName, eventDate, eventTime, eventText, eventParticipant
 
 	return (
 		<div className="itinerary-box">
-				<button className="button" style={{position:"absolute", top:"20px", right:"20px"}}>Edit</button>
+			<EditEvent/>
 
 				<h2 style={{display: "inline-block", marginRight:"30px"}}>{eventName}</h2>
 				
