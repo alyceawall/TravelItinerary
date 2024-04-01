@@ -3,6 +3,8 @@ import '../style.css';
 //import ParticipantsBox from '../client/participantsBox'
 import {AddNameBubble, /* NameBubble */} from '../client/participantHelpers'
 
+import ViewItineraryButton from '../client/homeScreenClients'
+
 
 
 
@@ -65,7 +67,7 @@ function ItinerarySummaryBlock({tripTitle, startDate, endDate}) {
 				<AddNameBubble onButtonClick={null}/> {/** TODO: Pass the function for when you click on the Add User button*/}
 			<p>{startDate} to {endDate}</p>
 			
-			<button className="button" >View Itinerary</button>
+			<ViewItineraryButton/>
 
 		</div>
 	);
