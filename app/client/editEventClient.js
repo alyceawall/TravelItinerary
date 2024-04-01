@@ -5,7 +5,7 @@ import {useRouter} from 'next/navigation';
 import {ParticipantSelection, AddNameBubble, NameBubble} from './participantHelpers';
 
 
-export default function SubmitButton() {
+export default function ViewItineraryButton() {
 	const router = useRouter();
 	
 	return (

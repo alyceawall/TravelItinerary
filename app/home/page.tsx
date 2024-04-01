@@ -3,7 +3,7 @@ import '../style.css';
 //import ParticipantsBox from '../client/participantsBox'
 import {AddNameBubble, /* NameBubble */} from '../client/participantHelpers'
 
-import ViewItineraryButton from '../client/homeScreenClients'
+import {ViewItineraryButton, AddNewItinerary} from '../client/homeScreenClients'
 
 
 
@@ -47,7 +47,7 @@ function HomeScreen() {
 			</div>
 
 			{/** The "add new" button */}
-			<button className="button" style={{position:"fixed",left:"50%",bottom:"50px"}}>Add new itinerary</button>
+			<AddNewItinerary/>
 			
 
 		</div>
