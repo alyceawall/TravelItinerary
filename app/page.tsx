@@ -4,16 +4,25 @@ import './style.css';
 import EventParticipantsManager from './client/eventParticipantsManager'
 import ParticipantsBox from './client/participantsBox'
 import {AddNameBubble, NameBubble} from './client/participantHelpers'
+import itineraryModel from './api/itineraryModel';
 
 //import {useState} from 'react';
 
 
 var participantsArray = [];
-
+var users;
+var events;
+var itineraries;
 
 export default async function Page() {
+	users = await getUserData();
+	events = await getEventData();
+	itineraries = await getItineraryData();
+	participantsArray = users.map(user => user.name);
+	//TODO: make this only the users associated with the itinerary
 	return (	
-		<ItineraryScreen itineraryName={"Joe's BBQ Bash"}/>
+		//<HomeScreen/>
+		<ItineraryScreen itineraryName={"Test Location"}/>
   );
 	
 	//<HomeScreen/>    <SearchScreen/>		<ItineraryScreen itineraryName={"Joe's BBQ Bash"}/>  <NewEventScreen/>
@@ -30,7 +39,19 @@ HOME SCREEN
 */
 
 function HomeScreen() {
-
+  //TODO: actually get this to reference appropriate itinerary
+  var summaryBlocks = []
+  for (const itinerary of itineraries){
+	summaryBlocks.push(
+		<ItinerarySummaryBlock
+		tripTitle={itinerary.name}
+		// TODO: we should probably convert these to nicer looking strings
+		startDate={itinerary.date_start}
+		endDate={itinerary.date_end}
+		participants={itinerary.participants}
+		/>
+	)
+  }
   return (
 		<div>
 
@@ -43,12 +64,7 @@ function HomeScreen() {
 			{/** The body of the page, containing all Itineraries.*/}
 
 			<div className="body-scroll">
-				<ItinerarySummaryBlock
-					tripTitle={"Trip to Bahamas"}
-					startDate={"March 6th"}
-					
-					endDate={"March 16th"}
-				/>
+				{summaryBlocks}
 
 			</div>
 
@@ -65,11 +81,19 @@ function HomeScreen() {
 	The block that shows immediately salient information about a single 
 	itinerary to the user on the home page.
 */
-function ItinerarySummaryBlock({tripTitle, startDate, endDate}) {
+function ItinerarySummaryBlock({tripTitle, startDate, endDate, participants}) {
+	//this relies of there being ONE unique title
+	var nameBubbles = [];
+	for (const participant in participants){
+		nameBubbles.push(
+			//TODO: eventually participant should be participant.name
+			<NameBubbleNoedit name={participant}></NameBubbleNoedit>)
+	}
+
 	return (
 		<div className="itinerary-box">
 			<h2 style={{display: "inline-block", marginRight:"30px"}}>{tripTitle}</h2>
-				<NameBubbleNoedit name={"User1"}></NameBubbleNoedit>
+				{nameBubbles}
 				<AddNameBubble onButtonClick={null}/> {/** TODO: Pass the function for when you click on the Add User button*/}
 			<p>{startDate} to {endDate}</p>
 			
@@ -91,11 +115,22 @@ ITINERARY FOCUS
 */
 
 async function ItineraryScreen({itineraryName}) {
-	//note: right now, more than one getData() will cause an error
-	const users = await getUserData();
-	const events = await getEventData();
-	let participantsArray = users.map(user => user.name);
-
+	var eventsList = []
+	//there may be a better way to get this than a for loop, but this gets all events with the unique matching itinerary id
+	for (const event of events){
+		if (event.location == itineraryName){
+			eventsList.push(
+				<TripEvent
+					eventName = {event.name}
+					eventDate = {event.startDate}
+					eventTime = {"placeholder"}
+					eventText = {event.desc}
+					eventParticipants = {event.participants}
+					eventLink = {event.link_to_site}
+				/>
+			)
+		}
+	}
 	return (
 		<div>
 			<div>
@@ -111,40 +146,9 @@ async function ItineraryScreen({itineraryName}) {
 
 			{/** the part which contains all the events */}
 
-			<div className="body-scroll" style={{width:"65%"}}>  
-				<TripEvent
-					eventName = {"Debby's flight"}
-					eventDate = {"March 8th"}
-					eventTime = {"15:35"}
-					eventText = {"Flight number 1234567891234, seat 23C, landing approx 9pm (George will pickup)"}
-					eventParticipants = {["Debby"]}
-					eventLink = {"https://bobby-tables.com/"}
-				/>
-				<TripEvent
-					eventName = {"Mark's flight"}
-					eventDate = {"March 8th"}
-					eventTime = {"18:35"}
-					eventText = {"Flight number 13257451234, seat 23C, landing approx 9pm (George will pickup)Flight number 13257451234, seat 23C, landing approx 9pm (George will pickup)Flight number 13257451234, seat 23C, landing approx 9pm (George will pickup)Flight number 13257451234, seat 23C, landing approx 9pm (George will pickup)"}
-					eventParticipants = {["Mark"]}
-					eventLink = {"https://bobby-tables.com/"}
-				/>
-				<TripEvent
-					eventName = {"event 3"}
-					eventDate = {"March 8th"}
-					eventTime = {"18:35"}
-					eventText = {"Flight number 13257451234, seat 23C, landing approx 9pm (George will pickup)Flight number 13257451234, seat 23C, landing approx 9pm (George will pickup)Flight number 13257451234, seat 23C, landing approx 9pm (George will pickup)Flight number 13257451234, seat 23C, landing approx 9pm (George will pickup)"}
-					eventParticipants = {["Mark"]}
-					eventLink = {"https://bobby-tables.com/"}
-				/>
-				<TripEvent
-					eventName = {"event 3"}
-					eventDate = {"March 8th"}
-					eventTime = {"18:35"}
-					eventText = {"Flight number 13257451234, seat 23C, landing approx 9pm (George will pickup)Flight number 13257451234, seat 23C, landing approx 9pm (George will pickup)Flight number 13257451234, seat 23C, landing approx 9pm (George will pickup)Flight number 13257451234, seat 23C, landing approx 9pm (George will pickup)"}
-					eventParticipants = {["Mark"]}
-					eventLink = {"https://bobby-tables.com/"}
-				/>
 
+			<div className="body-scroll" style={{width:"65%"}}>  
+				{eventsList}
 				{/** a spacer that lets the scroll look right. make sure the height of this matches the height of the footer.*/}
 				<div style={{height:"150px"}}></div>
 
@@ -177,14 +181,13 @@ function NameBubbleNoedit({name}) {
 	The client can also manage participants. 
 */
 function TripEvent({eventName, eventDate, eventTime, eventText, eventParticipants, eventLink}) {
-
 	return (
 		<div className="itinerary-box">
 
 				<h2 style={{display: "inline-block", marginRight:"30px"}}>{eventName}</h2>
 				
 				{/** Displays the participants, and allows the client to manage users */}
-				<EventParticipantsManager eventParticipants={eventParticipants}/>
+				<EventParticipantsManager eventParticipants={participantsArray}/>
 
 				<p>Starts on {eventDate} at {eventTime}</p>
 				<p><i>{eventText}</i></p>
@@ -312,6 +315,21 @@ async function getEventData() {
 			'http://localhost:31600/events',
 			);
         console.log('Frontend Fetch: Response status:', res.status);
+        const data = await res.json();
+        console.log('Frontend Fetch: Data from server:', data);
+        return data;
+    } catch (error) {
+        console.error('Frontend Fetch: Error fetching data:', error);
+        throw error;
+    }
+}
+
+async function getItineraryData() {
+	try {
+		const res = await fetch(
+			'http://localhost:31600/itineraries',
+		);
+		console.log('Frontend Fetch: Response status:', res.status);
         const data = await res.json();
         console.log('Frontend Fetch: Data from server:', data);
         return data;
