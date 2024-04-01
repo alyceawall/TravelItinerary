@@ -35,16 +35,6 @@ async function ItineraryScreen({itineraryName}) {
 
 	return (
 		<div>
-			<div>
-
-				{/** The header -- contains a back to home screen button, plus the name */}
-				<div className="header-banner">
-					<BackToHome/>
-					<h1>{itineraryName}</h1>
-				</div>
-				<ParticipantsBox participants={participantsArray} />
-				
-			</div>
 
 			{/** the part which contains all the events */}
 
@@ -92,6 +82,16 @@ async function ItineraryScreen({itineraryName}) {
 				<AddNewEvent/>
 			</div>
 
+			<div>
+
+				{/** The header -- contains a back to home screen button, plus the name */}
+				<div className="header-banner">
+					<BackToHome/>
+					<h1>{itineraryName}</h1>
+				</div>
+				<ParticipantsBox participants={participantsArray} />
+				
+			</div>
 		</div>
 
 	);
