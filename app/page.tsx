@@ -117,6 +117,7 @@ ITINERARY FOCUS
 async function ItineraryScreen({itineraryName}) {
 	var eventsList = []
 	//there may be a better way to get this than a for loop, but this gets all events with the unique matching itinerary id
+	//TODO: edit so that this gets the associated events from the itinerary's array
 	for (const event of events){
 		if (event.location == itineraryName){
 			eventsList.push(
