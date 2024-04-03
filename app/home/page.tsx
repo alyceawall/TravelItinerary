@@ -6,9 +6,16 @@ import {AddNameBubble, /* NameBubble */} from '../client/participantHelpers'
 import {ViewItineraryButton, AddNewItinerary} from '../client/homeScreenClients'
 
 
-
+var participantsArray = [];
+var users;
+var events;
+var itineraries;
 
 export default async function Page() {
+	users = await getUserData();
+	events = await getEventData();
+	itineraries = await getItineraryData();
+	participantsArray = users.map(user => user.name);
 	return (	
 		<HomeScreen/>
   );
@@ -24,7 +31,21 @@ HOME SCREEN
 */
 
 function HomeScreen() {
-
+	//TODO: actually get this to reference appropriate itinerary
+	var summaryBlocks = []
+	for (const itinerary of itineraries){
+		summaryBlocks.push(
+			<ItinerarySummaryBlock
+			tripTitle={itinerary.name}
+			// TODO: we should probably convert these to nicer looking strings
+			startDate={itinerary.date_start}
+			endDate={itinerary.date_end}
+			participants={itinerary.participants}
+			/>
+		)
+	}
+	summaryBlocks.sort((itin1, itin2) =>
+			(itin1.date_start < itin2.date_start) ? 1 : (itin1.date_start < itin2.date_start) ? -1 : 0)
   return (
 		<div>
 
@@ -37,12 +58,7 @@ function HomeScreen() {
 			{/** The body of the page, containing all Itineraries.*/}
 
 			<div className="body-scroll">
-				<ItinerarySummaryBlock
-					tripTitle={"Trip to Bahamas"}
-					startDate={"March 6th"}
-					
-					endDate={"March 16th"}
-				/>
+				{summaryBlocks}
 
 			</div>
 
@@ -59,15 +75,23 @@ function HomeScreen() {
 	The block that shows immediately salient information about a single 
 	itinerary to the user on the home page.
 */
-function ItinerarySummaryBlock({tripTitle, startDate, endDate}) {
+function ItinerarySummaryBlock({tripTitle, startDate, endDate, participants}) {
+	//this relies of there being ONE unique title
+	var nameBubbles = [];
+	for (const participant in participants){
+		nameBubbles.push(
+			//TODO: eventually participant should be participant.name
+			<NameBubbleNoedit name={participant}></NameBubbleNoedit>)
+	}
+
 	return (
 		<div className="itinerary-box">
 			<h2 style={{display: "inline-block", marginRight:"30px"}}>{tripTitle}</h2>
-				<NameBubbleNoedit name={"User1"}></NameBubbleNoedit>
+				{nameBubbles}
 				<AddNameBubble onButtonClick={null}/> {/** TODO: Pass the function for when you click on the Add User button*/}
 			<p>{startDate} to {endDate}</p>
 			
-			<ViewItineraryButton/>
+			<button className="button" >View Itinerary</button>
 
 		</div>
 	);
@@ -127,4 +151,20 @@ async function getEventData() {
         throw error;
     }
 }
+
+async function getItineraryData() {
+	try {
+		const res = await fetch(
+			'http://localhost:31600/itineraries',
+		);
+		console.log('Frontend Fetch: Response status:', res.status);
+        const data = await res.json();
+        console.log('Frontend Fetch: Data from server:', data);
+        return data;
+    } catch (error) {
+        console.error('Frontend Fetch: Error fetching data:', error);
+        throw error;
+    }
+}
+
 
