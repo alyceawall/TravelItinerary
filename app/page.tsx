@@ -1,7 +1,7 @@
-import '../../../style.css';
+import './style.css';
 //import EventParticipantsManager from '../../../client/eventParticipantsManager'
 //import ParticipantsBox from '../../../client/participantsBox'
-import {AddNameBubble, NameBubble} from '../../../client/participantHelpers'
+import {AddNameBubble, NameBubble} from './client/participantHelpers'
 
 
 export default async function Page() {
@@ -31,27 +31,29 @@ function SearchScreen() {
 	return (
 		<div>
 			{/** Header code */}
-			<div className="header-banner">
+			<div className="header-banner" style={{height:"150px"}}>
 				<h1>Search results</h1>
 				<input style={{display:"inline-block", width:"90%", margin:"25px"}}></input>
+				{/**
 				<p style={{display:"inline-block", marginRight:"10px"}}>Searching for: </p>
-				{/** Allow user to select desired event type */}
+				 Allow user to select desired event type
 				<select style={{width:"50%"}}>
 					<option value="accomodation">Hotel or other accomodation</option>
 					<option value="travel">Plane, train, or automobile</option>
 					<option value="event">Other event</option>
 				</select>
 				<p>Filters: </p>
-				{/** Filters TBD */}
+				{/** Filters TBD 
 				<NameBubble name="Placeholder for filter1"/>
 				<NameBubble name="Placeholder for filter2"/>
 				<AddNameBubble onButtonClick={null}/>
+				*/}
 				<hr/>
 			</div>
 
 			{/** Search results */}
 
-			<div className="body-scroll" style={{marginTop:"225px"}}>
+			<div className="body-scroll" style={{marginTop:"175px"}}>
 				<SearchResult title="Hotel X" cost="139" site="https://bobby-tables.com/" filters="filter2"/>
 				<SearchResult title="Hotel Y" cost="139" site="https://bobby-tables.com/" filters="filter2"/>
 				<SearchResult title="Hotel Z" cost="139" site="https://bobby-tables.com/" filters="filter1"/>
@@ -68,14 +70,14 @@ function SearchScreen() {
 /*
 	Shows a single search result.
 */
-function SearchResult({title, cost, site, filters}) {
+function SearchResult({title, cost, site}) {
 	return (
 
 	<div className="search-box">
 		<h3 style={{display:"inline-block", marginRight:"30px"}}>{title}</h3>
-		<NameBubbleNoedit name={filters}/>
 		<h4>${cost}+ per night</h4>
 		<p><a href={site} target="_blank">Visit site</a></p>
+		<button className="button" style={{marginTop:"10px"}}>Add to Itinerary</button>
 	</div>
 
 	);
