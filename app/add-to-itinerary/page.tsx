@@ -6,7 +6,7 @@ import {AddNameBubble, /* NameBubble */} from '../client/participantHelpers'
 import {ViewItineraryButton, AddNewItinerary} from '../client/homeScreenClients'
 
 
-import SubmitButton from '../client/editEventClient'
+import {AddToItinerary} from '../client/addToItineraryClient'
 
 
 
@@ -50,7 +50,7 @@ function AddEvent({eventId}) {
 			<p>Other notes (optional):</p>
 			<textarea></textarea>
 
-			<SubmitButton/>
+			<AddToItinerary/>
 			{/** This will add the inputted info to that gotten from the DB, update the event entry with inputted info, and add it all to the selected itinerary */}
 		</div>
 	);

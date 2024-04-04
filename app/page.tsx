@@ -2,6 +2,7 @@ import './style.css';
 //import EventParticipantsManager from '../../../client/eventParticipantsManager'
 //import ParticipantsBox from '../../../client/participantsBox'
 import {AddNameBubble, NameBubble} from './client/participantHelpers'
+import {OpenAddDialogue} from './client/addToItineraryClient'
 
 
 export default async function Page() {
@@ -54,12 +55,12 @@ function SearchScreen() {
 			{/** Search results */}
 
 			<div className="body-scroll" style={{marginTop:"175px"}}>
-				<SearchResult title="Hotel X" cost="139" site="https://bobby-tables.com/" filters="filter2"/>
-				<SearchResult title="Hotel Y" cost="139" site="https://bobby-tables.com/" filters="filter2"/>
-				<SearchResult title="Hotel Z" cost="139" site="https://bobby-tables.com/" filters="filter1"/>
-				<SearchResult title="Hotel X" cost="139" site="https://bobby-tables.com/" filters="filter2"/>
-				<SearchResult title="Hotel Y" cost="139" site="https://bobby-tables.com/" filters="filter2"/>
-				<SearchResult title="Hotel Z" cost="139" site="https://bobby-tables.com/" filters="filter1"/>
+				<SearchResult title="Hotel X" cost="139" site="https://bobby-tables.com/"/>
+				<SearchResult title="Hotel Y" cost="139" site="https://bobby-tables.com/"/>
+				<SearchResult title="Hotel Z" cost="139" site="https://bobby-tables.com/"/>
+				<SearchResult title="Hotel X" cost="139" site="https://bobby-tables.com/"/>
+				<SearchResult title="Hotel Y" cost="139" site="https://bobby-tables.com/"/>
+				<SearchResult title="Hotel Z" cost="139" site="https://bobby-tables.com/"/>
 
 			</div>
 
@@ -77,7 +78,7 @@ function SearchResult({title, cost, site}) {
 		<h3 style={{display:"inline-block", marginRight:"30px"}}>{title}</h3>
 		<h4>${cost}+ per night</h4>
 		<p><a href={site} target="_blank">Visit site</a></p>
-		<button className="button" style={{marginTop:"10px"}}>Add to Itinerary</button>
+		<OpenAddDialogue/>
 	</div>
 
 	);
