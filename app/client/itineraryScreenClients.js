@@ -8,8 +8,8 @@ export function AddNewEvent() {
 	return (
 	<button 
 		className = "new-event-button" 
-		onClick = {() => router.push("/home/itinerary/new")}
-	>Add new event</button>
+		onClick = {() => router.push("/")}
+	>Find more events</button>
 	)
 }
 
@@ -20,7 +20,7 @@ export function BackToHome() {
 	<button 
 		className = "button" 
 		onClick = {() => router.push("/home")}
-	>Back</button>
+	>View all itineraries</button>
 	)
 }
 
