@@ -2,7 +2,7 @@ import '../../style.css';
 import EventParticipantsManager from '../../client/eventParticipantsManager'
 import ParticipantsBox from '../../client/participantsBox'
 
-import {AddNewEvent, BackToHome} from '../../client/itineraryScreenClients'
+import {AddNewEvent, BackToHome, EditEvent} from '../../client/itineraryScreenClients'
 
 
 var participantsArray = [];
@@ -98,6 +98,7 @@ function TripEvent({eventName, eventDate, eventTime, eventText, eventLocation, e
 		<div className="itinerary-box">
 
 				<h2 style={{display: "inline-block", marginRight:"30px"}}>{eventName}</h2>
+				<EditEvent/>
 				
 				{/** Displays the participants, and allows the client to manage users */}
 				<EventParticipantsManager eventParticipants={participantsArray}/>
