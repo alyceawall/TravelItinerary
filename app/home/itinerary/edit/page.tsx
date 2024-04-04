@@ -1,6 +1,6 @@
 import '../../../style.css';
 
-import SubmitButton from '../../../client/editEventClient'
+import {SubmitButton} from '../../../client/editEventClient'
 
 export default async function Page() {
 	return (	

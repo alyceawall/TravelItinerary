@@ -1,8 +1,5 @@
 'use client';
-import {useState} from 'react';
 import {useRouter} from 'next/navigation';
-
-import {ParticipantSelection, AddNameBubble, NameBubble} from './participantHelpers';
 
 
 export function AddNewEvent() {
@@ -37,5 +34,18 @@ export function EditEvent() {
 		style = {{position:"absolute", top:"20px", right:"20px"}}
 		onClick = {() => router.push("/home/itinerary/edit")}
 	>Edit</button>
+	)
+}
+
+export function SubmitEditEvent() {
+	const router = useRouter();
+	
+	return (
+		
+	<button 
+		className = "button" 
+		style = {{position:"absolute", top:"20px", right:"20px"}}
+		onClick = {() => router.push("/home/itinerary")}
+	>Submit</button>
 	)
 }

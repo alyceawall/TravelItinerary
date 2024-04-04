@@ -1,7 +1,4 @@
 import './style.css';
-//import EventParticipantsManager from '../../../client/eventParticipantsManager'
-//import ParticipantsBox from '../../../client/participantsBox'
-import {AddNameBubble, NameBubble} from './client/participantHelpers'
 import {OpenAddDialogue} from './client/addToItineraryClient'
 
 

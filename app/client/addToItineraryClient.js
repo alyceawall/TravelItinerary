@@ -1,8 +1,5 @@
 'use client';
-import {useState} from 'react';
 import {useRouter} from 'next/navigation';
-
-import {ParticipantSelection, AddNameBubble, NameBubble} from './participantHelpers';
 
 
 export function AddToItinerary() {

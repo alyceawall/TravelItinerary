@@ -2,7 +2,7 @@ import '../../style.css';
 import EventParticipantsManager from '../../client/eventParticipantsManager'
 import ParticipantsBox from '../../client/participantsBox'
 
-import {AddNewEvent, BackToHome, EditEvent} from '../../client/itineraryScreenClients'
+import {AddNewEvent, BackToHome} from '../../client/itineraryScreenClients'
 
 
 var participantsArray = [];
