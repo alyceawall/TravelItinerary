@@ -9,16 +9,31 @@ var participantsArray = [];
 var users;
 var events;
 var itineraries;
+var current_username = "janedoe"
+var current_user;
+var current_itinerary_name = "Test Itinerary"
+var current_itinerary
 
 export default async function Page() {
 	users = await getUserData();
 	events = await getEventData();
 	itineraries = await getItineraryData();
-	participantsArray = users.map(user => user.name);
+	for (const user of users){
+		if (user.username == current_username){
+			current_user = user;
+		}
+	}
+	for (const itinerary of itineraries){
+		if (itinerary.name == current_itinerary_name){
+			current_itinerary = itinerary;
+		}
+	}
+	//only show participants already associated w/ itinerary
+	participantsArray = current_itinerary.participants.map(user => user.name);
 	//TODO: make this only the users associated with the itinerary
 	return (	
 		//<HomeScreen/>
-		<ItineraryScreen itineraryName={"Test Location"}/>
+		<ItineraryScreen itineraryName={current_itinerary_name}/>
   );
 }
 
@@ -38,8 +53,7 @@ ITINERARY FOCUS
 async function ItineraryScreen({itineraryName}) {
 	var eventsList = []
 	//there may be a better way to get this than a for loop, but this gets all events with the unique matching itinerary id
-	//TODO: edit so that this gets the associated events from the itinerary's array
-	for (const event of events){
+	for (const event of current_itinerary.events){
 		if (event.location == itineraryName){
 			eventsList.push(
 				<TripEvent
@@ -94,6 +108,7 @@ async function ItineraryScreen({itineraryName}) {
 	The client can also manage participants. 
 */
 function TripEvent({eventName, eventDate, eventTime, eventText, eventLocation, eventParticipants, eventLink}) {
+	
 	return (
 		<div className="itinerary-box">
 

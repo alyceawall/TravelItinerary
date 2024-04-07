@@ -10,12 +10,20 @@ var participantsArray = [];
 var users;
 var events;
 var itineraries;
+var current_username = "janedoe"
+var current_user;
 
 export default async function Page() {
 	users = await getUserData();
 	events = await getEventData();
 	itineraries = await getItineraryData();
-	participantsArray = users.map(user => user.name);
+	//there is probably a better way to do this than a for loop, a sql like query would be great
+	for (const user of users){
+		if (user.username == current_username){
+			current_user = user;
+		}
+	}
+	participantsArray = current_user.friends.map(user => user.name);
 	return (	
 		<HomeScreen/>
   );
@@ -33,7 +41,8 @@ HOME SCREEN
 function HomeScreen() {
 	//TODO: actually get this to reference appropriate itinerary
 	var summaryBlocks = []
-	for (const itinerary of itineraries){
+	console.log(current_user)
+	for (const itinerary of current_user.itineraries){
 		summaryBlocks.push(
 			<ItinerarySummaryBlock
 			tripTitle={itinerary.name}
