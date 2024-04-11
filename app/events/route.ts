@@ -16,8 +16,11 @@ export async function GET(request: Request) {
     const eventData = await eventModel.find({});
     console.log('Data from events collection:', eventData);
 
+    const eventsWithoutUser = await eventModel.find({ participants: { $exists: true, $not: { $elemMatch: { $exists: true } } } });
+    console.log('Events with no associated user:', eventsWithoutUser);
+
     // Creates a HTTP response object using userData OR {} as the json
-    return NextResponse.json(eventData || {});
+    return NextResponse.json({ eventData, eventsWithoutUser });
   } catch (error) {
     console.error('Error querying the database:', error); // Log the specific error
     return NextResponse.error();

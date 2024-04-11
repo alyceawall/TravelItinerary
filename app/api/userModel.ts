@@ -30,9 +30,9 @@ const userSchema = new mongoose.Schema({
       }]
     });
 
-
 // Create the userModel to be used by database
 const userModel = mongoose.models.users || mongoose.model('users', userSchema);
+
 
 // Export the model
 export default userModel;
