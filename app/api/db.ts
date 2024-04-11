@@ -82,16 +82,5 @@ async function friends() {
 friends();
 
 // Call the function to create test data
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 createTestData();
-=======
-createTestData();
->>>>>>> Stashed changes
-=======
-createTestData();
->>>>>>> Stashed changes
-=======
-createTestData();
->>>>>>> Stashed changes
+
