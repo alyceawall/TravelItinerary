@@ -14,7 +14,7 @@ export async function GET(request: Request) {
     // Log the result to the console for debugging
     
     const eventData = await eventModel.find({});
-    console.log('Data from events collection:', eventData);
+    //console.log('Data from events collection:', eventData);
 
     // Creates a HTTP response object using userData OR {} as the json
     return NextResponse.json(eventData || {});

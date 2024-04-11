@@ -30,7 +30,7 @@ mongoose.connection.on('error', (err) => {
 
 //       // Create a test itinerary
 //       const testItinerary = await itineraryModel.create({
-//           name: 'Test Itinerary',
+//           name: 'Test Itinerary', 
 //           display_name: 'Test Itinerary',
 //           events: [], // Events are added separately
 //           date_start: new Date(),

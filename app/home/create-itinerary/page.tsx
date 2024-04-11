@@ -5,7 +5,7 @@ import {AddNameBubble, NameBubble} from '../../client/participantHelpers'
 
 import SubmitButton from '../../client/createItineraryClient'
 
-export default async function Page() {
+export default async function Page() { 
 	return (	
 		<NewItineraryScreen/>
   );

@@ -30,7 +30,6 @@ export default async function Page() {
 	}
 	//only show participants already associated w/ itinerary
 	participantsArray = current_itinerary.participants.map(user => user.name);
-	//TODO: make this only the users associated with the itinerary
 	return (	
 		//<HomeScreen/>
 		<ItineraryScreen itineraryName={current_itinerary_name}/>

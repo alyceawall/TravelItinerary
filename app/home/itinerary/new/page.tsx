@@ -1,51 +1,39 @@
+import {FormEvent} from 'react'
 import '../../../style.css';
 //import EventParticipantsManager from '../../../client/eventParticipantsManager'
 //import ParticipantsBox from '../../../client/participantsBox'
-
-import SubmitButton from '../../../client/editEventClient'
-
+import NewEventScreen from '../../../client/newEventScreenClient'
 
 
 
-export default async function Page() {
+export default async function Page() { 
 	return (	
-		<NewEventScreen/>
+		<AddEvent/>
   );
 	
 	//<HomeScreen/>    <SearchScreen/>		<ItineraryScreen itineraryName={"Joe's BBQ Bash"}/>  <NewEventScreen/>
 
 }
-
-
 	// New event screen
 
-function NewEventScreen() {
+
+function AddEvent() {
+	
+	async function onSubmit(e: FormEvent<HTMLFormElement>) {
+		e.preventDefault()
+
+		const formData = new FormData(e.currentTarget) 
+		const response = await fetch('../../../api/addEvent', {
+			method: 'POST',
+			body: formData
+		})
+	
+	}
 	return (
-
-		<div>
-			<h1>Add new event</h1>
-
-			<p>Title:</p>
-			<input></input>
-			<p>Date:</p>
-			<input type="date"></input>
-			<p>End date (optional):</p>
-			<input type="date"></input>
-			<p>Start time (optional):</p>
-			<input type="time"></input>
-			<p>End time (optional):</p>
-			<input type="time"></input>
-			<p>Address/location (optional):</p>
-			<input></input>
-			<p>Website for managing event (optional):</p>
-			<input></input>
-			<p>Other notes (optional):</p>
-			<textarea></textarea>
-
-			<SubmitButton/>
-		</div>
+		<NewEventScreen/>
 	);
 	}
+
 
 
 	
