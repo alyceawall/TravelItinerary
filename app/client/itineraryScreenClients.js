@@ -7,7 +7,6 @@ import {ParticipantSelection, AddNameBubble, NameBubble} from './participantHelp
 
 export function AddNewEvent() {
 	const router = useRouter();
-	
 	return (
 	<button 
 		className = "new-event-button" 

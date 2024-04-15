@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 // import eventModel from './eventModel';
 
 // Connect to the database
-mongoose.connect(process.env.MONGODB_URI!, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://316:316Password@lbt.5zbr4zu.mongodb.net/LBT?retryWrites=true&w=majority');
 
 
 mongoose.connection.on('connected', () => {
