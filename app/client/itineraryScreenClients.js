@@ -17,14 +17,15 @@ export function AddNewEvent({itinerary_id}) {
 	)
 }
 
-export function SearchForEvent(itinerary_id) {
+export function SearchForEvent({itinerary_id}) {
 	const router = useRouter();
-	var fullURL= "/home/itinerary/search/" + itinerary_id;
+	//var fullURL= "/home/itinerary/search/" + itinerary_id;
 	return (
 	<button 
 		className = "new-event-button" 
 		style={{bottom:"25px"}}
-		onClick = {() => router.push(fullURL)}
+		//onClick = {() => router.push(fullURL)}
+		onClick = {() => router.push("/home/itinerary/search/")}
 	>Find an event</button>
 	)
 }
