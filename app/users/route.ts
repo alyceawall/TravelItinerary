@@ -12,7 +12,7 @@ export async function GET(request: Request) {
     // Query the database
     //Log the result to the console for debugging
     const userData = await userModel.find({});
-    console.log('Data from Users collection:', userData);
+    //console.log('Data from Users collection:', userData);
 
     // Creates a HTTP response object using userData OR {} as the json
     return NextResponse.json(userData || {});

@@ -5,13 +5,14 @@ import {useRouter} from 'next/navigation';
 import {ParticipantSelection, AddNameBubble, NameBubble} from './participantHelpers';
 
 
-export function ViewItineraryButton() {
+export function ViewItineraryButton({itinerary_id}) {
 	const router = useRouter();
+	var fullURL = "/home/itinerary/" + itinerary_id;
 	
 	return (
 	<button 
 		className = "button" 
-		onClick = {() => router.push("/home/itinerary")}
+		onClick = {() => router.push(fullURL)}
 	>View Itinerary</button>
 	)
 }

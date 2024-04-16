@@ -1,27 +1,30 @@
-import '../../style.css';
-import EventParticipantsManager from '../../client/eventParticipantsManager'
-import ParticipantsBox from '../../client/participantsBox'
+import '../../../style.css';
+import EventParticipantsManager from '../../../client/eventParticipantsManager'
+import ParticipantsBox from '../../../client/participantsBox'
+import connectFriends from '../../../api/addFriends'
 
-import {AddNewEvent, BackToHome, EditEvent} from '../../client/itineraryScreenClients'
+import {AddNewEvent, BackToHome, EditEvent} from '../../../client/itineraryScreenClients'
 
 
 var participantsArray = [];
 var users;
 var events;
-var itineraries;
+var itineraries; 
 
-export default async function Page() {
+export default async function Page({ params }: { params: { id: string } }) {
+	const { id } = params;
 	users = await getUserData();
 	events = await getEventData();
 	itineraries = await getItineraryData();
-	participantsArray = users.map(user => user.name);
+	var currentItinerary = itineraries.find((itinerary) => itinerary._id == id);
+	participantsArray = users.filter((user) => currentItinerary.participants.includes(user._id));
+	
 	//TODO: make this only the users associated with the itinerary
 	return (	
 		//<HomeScreen/>
-		<ItineraryScreen itineraryName={"Test Location"}/>
+		<ItineraryScreen currentItinerary={currentItinerary}/>
   );
 }
-
 
 
 
@@ -35,28 +38,28 @@ ITINERARY FOCUS
 
 */
 
-async function ItineraryScreen({itineraryName}) {
+async function ItineraryScreen({currentItinerary}) {
 	var eventsList = []
+	var currentEvents = events.filter((event) => currentItinerary.events.includes(event._id));
 	//there may be a better way to get this than a for loop, but this gets all events with the unique matching itinerary id
 	//TODO: edit so that this gets the associated events from the itinerary's array
-	for (const event of events){
-		if (event.location == itineraryName){
-			eventsList.push(
-				<TripEvent
-					eventName = {event.name}
-					eventDate = {event.startDate}
-					eventTime = {"placeholder"}
-					eventText = {event.desc}
-					eventLocation = {event.location}
-					eventParticipants = {event.participants}
-					eventLink = {event.link_to_site}
-				/>
-			)
-		}
+	for (const event of currentEvents){
+		eventsList.push(
+			<TripEvent
+				eventName = {event.name}
+				eventDate = {event.startDate}
+				eventTime = {"placeholder"}
+				eventText = {event.desc}
+				eventLocation = {event.location}
+				eventParticipants = {event.participants}
+				eventLink = {event.link_to_site}
+			/>
+		)
 	}
 	eventsList.sort((event1, event2) =>
 		(event1.startDate < event2.startDate) ? 1 : (event1.startDate < event2.startDate) ? -1 : 0)
 
+	var itinerary_id = currentItinerary._id.valueOf();
 	return (
 		<div>
 
@@ -71,7 +74,7 @@ async function ItineraryScreen({itineraryName}) {
 
 			{/** the footer, containing a button to add new, and a background to make it a little more visible */}
 			<div style={{position:"fixed", bottom:"0px", width:"100%", height:"150px", backgroundColor:"#111111aa"}}>
-				<AddNewEvent/>
+				<AddNewEvent itinerary_id = {itinerary_id}/>
 			</div>
 
 			<div>
@@ -79,9 +82,9 @@ async function ItineraryScreen({itineraryName}) {
 				{/** The header -- contains a back to home screen button, plus the name */}
 				<div className="header-banner">
 					<BackToHome/>
-					<h1>{itineraryName}</h1>
+					<h1>{currentItinerary.name}</h1>
 				</div>
-				<ParticipantsBox participants={participantsArray} />
+				<ParticipantsBox participants={participantsArray.map((user) => user.name)} />
 				
 			</div>
 		</div>
@@ -100,7 +103,7 @@ function TripEvent({eventName, eventDate, eventTime, eventText, eventLocation, e
 				<h2 style={{display: "inline-block", marginRight:"30px"}}>{eventName}</h2>
 				
 				{/** Displays the participants, and allows the client to manage users */}
-				<EventParticipantsManager eventParticipants={participantsArray}/>
+				<EventParticipantsManager eventParticipants={participantsArray.map((user) => user.name)}/>
 
 				<p>Starts on {eventDate} at {eventTime}</p>
 				<p>Address: {eventLocation}</p>
@@ -129,7 +132,7 @@ async function getUserData() {
 			);
         console.log('Frontend Fetch: Response status:', res.status);
         const data = await res.json();
-        console.log('Frontend Fetch: Data from server:', data);
+        //console.log('Frontend Fetch: Data from server:', data);
         return data;
     } catch (error) {
         console.error('Frontend Fetch: Error fetching data:', error);
@@ -145,7 +148,7 @@ async function getEventData() {
 			);
         console.log('Frontend Fetch: Response status:', res.status);
         const data = await res.json();
-        console.log('Frontend Fetch: Data from server:', data);
+       //console.log('Frontend Fetch: Data from server:', data);
         return data;
     } catch (error) {
         console.error('Frontend Fetch: Error fetching data:', error);
@@ -160,7 +163,7 @@ async function getItineraryData() {
 		);
 		console.log('Frontend Fetch: Response status:', res.status);
         const data = await res.json();
-        console.log('Frontend Fetch: Data from server:', data);
+        //console.log('Frontend Fetch: Data from server:', data);
         return data;
     } catch (error) {
         console.error('Frontend Fetch: Error fetching data:', error);

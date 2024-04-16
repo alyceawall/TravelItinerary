@@ -10,12 +10,16 @@ var participantsArray = [];
 var users;
 var events;
 var itineraries;
+var logged_in_user;
 
 export default async function Page() {
 	users = await getUserData();
 	events = await getEventData();
 	itineraries = await getItineraryData();
-	participantsArray = users.map(user => user.name);
+	logged_in_user = users.find((user) => user._id == '660c4ee4fbcd9cd53de4bade');
+	participantsArray = users.filter((user) => logged_in_user.friends.includes(user._id))
+	participantsArray.push(logged_in_user)
+	console.log(participantsArray)
 	return (	
 		<HomeScreen/>
   );
@@ -33,17 +37,20 @@ HOME SCREEN
 function HomeScreen() {
 	//TODO: actually get this to reference appropriate itinerary
 	var summaryBlocks = []
-	for (const itinerary of itineraries){
+	var user_itineraries = itineraries.filter((itinerary) => logged_in_user.itineraries.includes(itinerary._id))
+	for (const itinerary of user_itineraries){
 		summaryBlocks.push(
 			<ItinerarySummaryBlock
+			id = {itinerary._id}
 			tripTitle={itinerary.name}
 			// TODO: we should probably convert these to nicer looking strings
 			startDate={itinerary.date_start}
 			endDate={itinerary.date_end}
-			participants={itinerary.participants}
+			participants= {participantsArray}
 			/>
 		)
 	}
+	
 	summaryBlocks.sort((itin1, itin2) =>
 			(itin1.date_start < itin2.date_start) ? 1 : (itin1.date_start < itin2.date_start) ? -1 : 0)
   return (
@@ -75,13 +82,13 @@ function HomeScreen() {
 	The block that shows immediately salient information about a single 
 	itinerary to the user on the home page.
 */
-function ItinerarySummaryBlock({tripTitle, startDate, endDate, participants}) {
+function ItinerarySummaryBlock({id, tripTitle, startDate, endDate, participants}) {
 	//this relies of there being ONE unique title
 	var nameBubbles = [];
-	for (const participant in participants){
+	for (const participant of participants){
 		nameBubbles.push(
 			//TODO: eventually participant should be participant.name
-			<NameBubbleNoedit name={participant}></NameBubbleNoedit>)
+			<NameBubbleNoedit name={participant.name}></NameBubbleNoedit>)
 	}
 
 	return (
@@ -91,7 +98,7 @@ function ItinerarySummaryBlock({tripTitle, startDate, endDate, participants}) {
 				<AddNameBubble onButtonClick={null}/> {/** TODO: Pass the function for when you click on the Add User button*/}
 			<p>{startDate} to {endDate}</p>
 			
-			<button className="button" >View Itinerary</button>
+			<ViewItineraryButton itinerary_id = {id}/>
 
 		</div>
 	);

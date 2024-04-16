@@ -11,7 +11,7 @@ export async function GET(request: Request) {
     // Query the database
     //Log the result to the console for debugging
     const itineraryData = await itineraryModel.find({});
-    console.log('Data from Itineraries collection:', itineraryData);
+    //console.log('Data from Itineraries collection:', itineraryData);
 
     // Creates a HTTP response object using itineraries Data OR {} as the json
     return NextResponse.json(itineraryData || {});
