@@ -11,8 +11,21 @@ export function AddNewEvent({itinerary_id}) {
 	return (
 	<button 
 		className = "new-event-button" 
+		style={{bottom:"75px"}}
 		onClick = {() => router.push(fullURL)}
 	>Add new event</button>
+	)
+}
+
+export function SearchForEvent(itinerary_id) {
+	const router = useRouter();
+	var fullURL= "/home/itinerary/search/" + itinerary_id;
+	return (
+	<button 
+		className = "new-event-button" 
+		style={{bottom:"25px"}}
+		onClick = {() => router.push(fullURL)}
+	>Find an event</button>
 	)
 }
 

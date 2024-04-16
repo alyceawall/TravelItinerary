@@ -3,7 +3,7 @@ import EventParticipantsManager from '../../../client/eventParticipantsManager'
 import ParticipantsBox from '../../../client/participantsBox'
 import connectFriends from '../../../api/addFriends'
 
-import {AddNewEvent, BackToHome, EditEvent} from '../../../client/itineraryScreenClients'
+import {AddNewEvent, BackToHome, EditEvent, SearchForEvent} from '../../../client/itineraryScreenClients'
 
 
 var participantsArray = [];
@@ -75,6 +75,7 @@ async function ItineraryScreen({currentItinerary}) {
 			{/** the footer, containing a button to add new, and a background to make it a little more visible */}
 			<div style={{position:"fixed", bottom:"0px", width:"100%", height:"150px", backgroundColor:"#111111aa"}}>
 				<AddNewEvent itinerary_id = {itinerary_id}/>
+				<SearchForEvent itinerary_id = {itinerary_id}/>
 			</div>
 
 			<div>
