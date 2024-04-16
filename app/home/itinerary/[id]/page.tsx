@@ -1,22 +1,23 @@
-import '../../style.css';
-import EventParticipantsManager from '../../client/eventParticipantsManager'
-import ParticipantsBox from '../../client/participantsBox'
-import connectFriends from '../../api/addFriends'
+import '../../../style.css';
+import EventParticipantsManager from '../../../client/eventParticipantsManager'
+import ParticipantsBox from '../../../client/participantsBox'
+import connectFriends from '../../../api/addFriends'
 
-import {AddNewEvent, BackToHome, EditEvent} from '../../client/itineraryScreenClients'
+import {AddNewEvent, BackToHome, EditEvent} from '../../../client/itineraryScreenClients'
 
 
 var participantsArray = [];
 var users;
 var events;
-var itineraries;
+var itineraries; 
 
-export default async function Page() {
+export default async function Page({ params }: { params: { id: string } }) {
+	const { id } = params;
 	users = await getUserData();
 	events = await getEventData();
 	itineraries = await getItineraryData();
-	var currentItinerary = itineraries.find((itinerary) => itinerary._id == '65f21e2a39e36ed114590f7b');
-	participantsArray = users.map(user => user.name);
+	var currentItinerary = itineraries.find((itinerary) => itinerary._id == id);
+	participantsArray = users.filter((user) => currentItinerary.participants.includes(user._id));
 	
 	//TODO: make this only the users associated with the itinerary
 	return (	
@@ -58,6 +59,7 @@ async function ItineraryScreen({currentItinerary}) {
 	eventsList.sort((event1, event2) =>
 		(event1.startDate < event2.startDate) ? 1 : (event1.startDate < event2.startDate) ? -1 : 0)
 
+	var itinerary_id = currentItinerary._id.valueOf();
 	return (
 		<div>
 
@@ -72,7 +74,7 @@ async function ItineraryScreen({currentItinerary}) {
 
 			{/** the footer, containing a button to add new, and a background to make it a little more visible */}
 			<div style={{position:"fixed", bottom:"0px", width:"100%", height:"150px", backgroundColor:"#111111aa"}}>
-				<AddNewEvent/>
+				<AddNewEvent itinerary_id = {itinerary_id}/>
 			</div>
 
 			<div>
@@ -82,7 +84,7 @@ async function ItineraryScreen({currentItinerary}) {
 					<BackToHome/>
 					<h1>{currentItinerary.name}</h1>
 				</div>
-				<ParticipantsBox participants={participantsArray} />
+				<ParticipantsBox participants={participantsArray.map((user) => user.name)} />
 				
 			</div>
 		</div>
@@ -101,7 +103,7 @@ function TripEvent({eventName, eventDate, eventTime, eventText, eventLocation, e
 				<h2 style={{display: "inline-block", marginRight:"30px"}}>{eventName}</h2>
 				
 				{/** Displays the participants, and allows the client to manage users */}
-				<EventParticipantsManager eventParticipants={participantsArray}/>
+				<EventParticipantsManager eventParticipants={participantsArray.map((user) => user.name)}/>
 
 				<p>Starts on {eventDate} at {eventTime}</p>
 				<p>Address: {eventLocation}</p>
