@@ -4,14 +4,22 @@
 	position: fixed;
 	top: 0px;
 	width: 100%;
-	background-color: #111111;
+	background-color: var(--background-element-color);
 	padding: 20px;
 	height:100px;
 }
 
 
+.footer-banner {
+	position:fixed;
+	bottom:0px;
+	width:100%;
+	height:150px;
+	background-color: #111111aa;
+}
+
 .itinerary-box {
-  background: #3b1923;
+  background: var(--large-bubble-color);
 	position: relative;
   border-radius: 25px;
   padding: 20px;
@@ -29,7 +37,7 @@
   padding: 10px;
 	margin-right:25px;
   border-radius: 20px;
-	background-color: #3b1923;
+	background-color: var(--large-bubble-color);
 }
 
 .search-box {
@@ -40,7 +48,7 @@
 }
 
 
-.button, .new-event-button {
+.new-event-button {
   border-radius: 20px;
   padding: 3px;
   padding-left: 8px;
@@ -61,7 +69,7 @@
 
 .name-bubble-not-interactive {
 	user-select:none;
-  background: #666666;
+  background: var(--small-bubble-color);
   border-radius: 20px;
   padding: 3px;
   padding-left: 12px;
@@ -74,7 +82,7 @@
 }
 
 .name-bubble-interactive {
-  background: #666666;
+  background:  var(--small-bubble-color);
   border-radius: 20px;
   padding: 3px;
   margin: 3px;
@@ -86,7 +94,7 @@
 
 }
 .name-bubble-interactive:hover {
-  background: #777777;
+  background: var(--small-bubble-hover-color);
 }
 
 
@@ -104,7 +112,7 @@
 }
 
 .x-button:hover {
-  background-color: #777777;
+  background-color: var(--small-bubble-hover-color);
   color: white;
 }
 

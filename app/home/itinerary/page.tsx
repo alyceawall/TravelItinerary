@@ -70,7 +70,7 @@ async function ItineraryScreen({itineraryName}) {
 			</div>
 
 			{/** the footer, containing a button to add new, and a background to make it a little more visible */}
-			<div style={{position:"fixed", bottom:"0px", width:"100%", height:"150px", backgroundColor:"#111111aa"}}>
+			<div className="footer-banner">
 				<AddNewEvent/>
 			</div>
 
