@@ -99,6 +99,7 @@ async function ItineraryScreen({currentItinerary}) {
 function TripEvent({eventName, eventDate, eventTime, eventText, eventLocation, eventParticipants, eventLink}) {
 	return (
 		<div className="itinerary-box">
+				<EditEvent/>
 
 				<h2 style={{display: "inline-block", marginRight:"30px"}}>{eventName}</h2>
 				
