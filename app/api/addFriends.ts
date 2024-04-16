@@ -1,42 +1,39 @@
-// //Idk if this works yet I did not test it
+import UserModel from './userModel';
+import mongoose from 'mongoose';
+import promptSync from 'prompt-sync';
 
-import userModel from './userModel';
+const prompt = promptSync();
 
-// Define a function that connects friends
-export default async function connectFriends(userUsername: string, friendUsernames: string[]) {
-    try {
-        // Fetch the user from the database based on the username
-        const user = await userModel.findOne({ username: userUsername });
+export async function addFriend(): Promise<void> {
+  try {
+    const user1Username = prompt('Enter the username of user 1: ');
+    const user2Username = prompt('Enter the username of user 2: ');
 
-        if (!user) {
-            throw new Error('User not found');
-        }
+    // Find user1 and user2 in the database
+    const user1 = await UserModel.findOne({ username: user1Username });
+    const user2 = await UserModel.findOne({ username: user2Username });
 
-        // Fetch the friend users from the database based on the friend usernames
-        const friends = await userModel.find({ username: { $in: friendUsernames } });
-
-        // Iterate through the list of friends
-        for (const friend of friends) {
-            // Check if the friend is already in the user's friends list
-            if (!user.friends.includes(friend._id)) {
-                // If not, add the friend to the user's friends list
-                user.friends.push(friend._id);
-            }
-
-            // Check if the user is already in the friend's friends list
-            if (!friend.friends.includes(user._id)) {
-                // If not, add the user to the friend's friends list
-                friend.friends.push(user._id);
-            }
-
-            // Save the changes to both user and friend documents
-            await Promise.all([user.save(), friend.save()]);
-        }
-
-        console.log('Friends connected successfully');
-    } catch (error) {
-        console.error('Error connecting friends:', error.message);
+    if (!user1 || !user2) {
+      throw new Error('User not found');
     }
-}
 
-export { connectFriends };
+    // Check if user2 is already in user1's friends list
+    if (user1.friends.includes(user2._id)) {
+      console.log(`${user2.name} and ${user1.name} are already friends!`);
+        return;
+    }
+
+    // Add user2 to user1's friends list and vice versa
+    user1.friends.push(user2._id);
+    user2.friends.push(user1._id);
+
+    // Save changes to the database
+    await user1.save();
+    await user2.save();
+    
+    console.log(`Friendship established between ${user1.name} and ${user2.name}`);
+  } catch (error) {
+    console.error('Error adding friend:', error);
+    throw error;
+  }
+}
