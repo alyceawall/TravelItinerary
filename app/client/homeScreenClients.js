@@ -22,7 +22,7 @@ export function AddNewItinerary() {
 	
 	return (
 	<button 
-		className = "button" 
+		className = "new-event-button" 
 		style = {{position:"fixed",left:"50%",bottom:"50px"}}
 		onClick = {() => router.push("/home/create-itinerary")}
 	>Add new itinerary</button>

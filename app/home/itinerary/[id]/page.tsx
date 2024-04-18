@@ -99,10 +99,10 @@ async function ItineraryScreen({currentItinerary}) {
 */
 function TripEvent({eventName, eventDate, eventTime, eventText, eventLocation, eventParticipants, eventLink}) {
 	return (
-		<div className="itinerary-box">
+		<div className="itinerary-box" style={{paddingRight:"75px"}}>
 				<EditEvent/>
 
-				<h2 style={{display: "inline-block", marginRight:"30px"}}>{eventName}</h2>
+				<h2 style={{display: "inline-block", marginRight:"10px"}}>{eventName}</h2>
 				
 				{/** Displays the participants, and allows the client to manage users */}
 				<EventParticipantsManager eventParticipants={participantsArray.map((user) => user.name)}/>

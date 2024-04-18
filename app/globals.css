@@ -1,11 +1,20 @@
 
 :root {
-  --foreground-rgb: #000000;
-  --background-element-color: #111111;
-	--link-color: #6666ff;
-	--large-bubble-color: #3b1923;
-	--small-bubble-color: #666666;
-	--small-bubble-hover-color: #777777;
+	--dark:#1c3f60;
+	--middark: #235079;
+	--mid: #2e6599;
+	--light:#7aa5cd;
+	--gray:  #d9d9d9;
+	--white: #eeeeee;
+	--accent: #f28f2e;
+
+  --foreground-rgb: var(--white);
+  --background-element-color: var(--dark);
+	--link-color: var(--white);
+	--large-bubble-color: var(--light);
+	--small-bubble-color: var(--middark);
+	--small-bubble-hover-color: var(--mid);
+	--small-bubble-text: var(--white);
 }
 
 
@@ -18,23 +27,29 @@ a {
   color: var(--link-color);
 }
 
-
+h1 {
+	color: var(--white);
+}
 
 button {
-
+	font-family: inherit !important;
   border-radius: 20px;
   padding: 3px;
   padding-left: 8px;
   padding-right: 8px;
   margin: 3px;
 	width: fit-content;
-	font-family: Arial, Helvetica, sans-serif;
-	background-color: BUTTONCOLOR;
+	font-family: comfortaa, sans-serif;
+	background-color: var(--small-bubble-color);
+	color: var(--small-bubble-text);
+
+}
+button:hover {
+	background-color: var(--small-bubble-hover-color);
 
 }
 
 
 html {
-	color-scheme: dark;
-	background-color: #111111;
+	background-color: var(--gray);
 }
