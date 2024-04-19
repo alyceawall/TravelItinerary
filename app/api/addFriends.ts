@@ -4,7 +4,7 @@ import promptSync from 'prompt-sync';
 
 const prompt = promptSync();
 
-export async function addFriend(): Promise<void> {
+export default async function addFriend(): Promise<void> {
   try {
     const user1Username = prompt('Enter the username of user 1: ');
     const user2Username = prompt('Enter the username of user 2: ');

@@ -122,4 +122,3 @@ async function getItineraryData() {
         throw error;
     }
 }
-

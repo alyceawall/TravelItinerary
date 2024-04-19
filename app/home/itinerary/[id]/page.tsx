@@ -10,13 +10,14 @@ var participantsArray = [];
 var users;
 var events;
 var itineraries; 
+var currentItinerary
 
 export default async function Page({ params }: { params: { id: string } }) {
 	const { id } = params;
 	users = await getUserData();
 	events = await getEventData();
 	itineraries = await getItineraryData();
-	var currentItinerary = itineraries.find((itinerary) => itinerary._id == id);
+	currentItinerary = itineraries.find((itinerary) => itinerary._id == id);
 	participantsArray = users.filter((user) => currentItinerary.participants.includes(user._id));
 	
 	//TODO: make this only the users associated with the itinerary
@@ -82,7 +83,7 @@ async function ItineraryScreen({currentItinerary}) {
 
 				{/** The header -- contains a back to home screen button, plus the name */}
 				<div className="header-banner">
-					<BackToHome/>
+					<BackToHome itinerary_id = {currentItinerary._id}/>
 					<h1>{currentItinerary.name}</h1>
 				</div>
 				<ParticipantsBox participants={participantsArray.map((user) => user.name)} />
@@ -100,7 +101,7 @@ async function ItineraryScreen({currentItinerary}) {
 function TripEvent({eventName, eventDate, eventTime, eventText, eventLocation, eventParticipants, eventLink}) {
 	return (
 		<div className="itinerary-box" style={{paddingRight:"75px"}}>
-				<EditEvent/>
+				<EditEvent itinerary_id = {currentItinerary._id}/>
 
 				<h2 style={{display: "inline-block", marginRight:"10px"}}>{eventName}</h2>
 				

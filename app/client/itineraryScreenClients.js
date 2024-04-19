@@ -7,7 +7,7 @@ import {ParticipantSelection, AddNameBubble, NameBubble} from './participantHelp
 
 export function AddNewEvent({itinerary_id}) {
 	const router = useRouter();
-	var fullURL= "/home/itinerary/new/" + itinerary_id;
+	var fullURL= "/home/itinerary/" + itinerary_id + "/new";
 	return (
 	<button 
 		className = "new-event-button" 
@@ -19,37 +19,38 @@ export function AddNewEvent({itinerary_id}) {
 
 export function SearchForEvent({itinerary_id}) {
 	const router = useRouter();
-	//var fullURL= "/home/itinerary/search/" + itinerary_id;
+	var fullURL= "/home/itinerary/" + itinerary_id + "/search";
 	return (
 	<button 
 		className = "new-event-button" 
 		style={{bottom:"25px"}}
-		//onClick = {() => router.push(fullURL)}
-		onClick = {() => router.push("/home/itinerary/search/")}
+		onClick = {() => router.push(fullURL)}
 	>Find an event</button>
 	)
 }
 
-export function BackToHome() {
+export function BackToHome({itinerary_id}) {
 	const router = useRouter();
+	var fullURL = "/home/itinerary/" + itinerary_id;
 	
 	return (
 	<button 
 		className = "button" 
-		onClick = {() => router.push("/home")}
+		onClick = {() => router.push(fullURL)}
 	>Back</button>
 	)
 }
 
-export function EditEvent() {
+export function EditEvent({itinerary_id}) {
 	const router = useRouter();
+	var fullURL = "/home/itinerary/" + itinerary_id + "/edit"
 	
 	return (
 		
 	<button 
 		className = "button" 
 		style = {{position:"absolute", top:"20px", right:"20px"}}
-		onClick = {() => router.push("/home/itinerary/edit")}
+		onClick = {() => router.push(fullURL)}
 	>Edit</button>
 	)
 }
