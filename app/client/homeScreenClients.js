@@ -17,14 +17,15 @@ export function ViewItineraryButton({itinerary_id}) {
 	)
 }
 
-export function AddNewItinerary() {
+export function AddNewItinerary({user_id}) {
 	const router = useRouter();
+	var fullURL = "/home/create-itinerary/" + user_id
 	
 	return (
 	<button 
 		className = "new-event-button" 
 		style = {{position:"fixed",left:"50%",bottom:"50px"}}
-		onClick = {() => router.push("/home/create-itinerary")}
+		onClick = {() => router.push(fullURL)}
 	>Add new itinerary</button>
 	)
 }
