@@ -1,8 +1,14 @@
 import '../../../style.css';
 
-import SubmitButton from '../../../client/editEventClient'
+import SubmitButton from '../../../../client/editEventClient'
 
-export default async function Page() {
+var originItinerary;
+var itineraries;
+
+export default async function Page({ params }: { params: { id: string } }) {
+	const { id } = params;
+	itineraries = getItineraryData();
+	originItinerary = itineraries.find((itinerary) => itinerary._id == id)
 	return (	
 		<EditEventScreen/>
   );
@@ -34,7 +40,7 @@ function EditEventScreen() {
 			<p>Other notes (optional):</p>
 			<textarea></textarea>
 
-			<SubmitButton/>
+			<SubmitButton itinerary_id = {originItinerary._id}/>
 		</div>
 	);
 }
@@ -46,11 +52,11 @@ export const dynamic = 'force-dynamic'
 // Get the language data from the database.
 // Returns a json object.
 
-async function getUserData() {
+async function getItineraryData() {
     try {
         const res = await fetch(
 			//'http://cs-vm-02.cs.mtholyoke.edu:31600/api'
-			'http://localhost:31600/users',
+			'http://localhost:31600/itineraries',
 			);
         console.log('Frontend Fetch: Response status:', res.status);
         const data = await res.json();
@@ -62,19 +68,5 @@ async function getUserData() {
     }
 }
 
-async function getEventData() {
-    try {
-        const res = await fetch(
-			//'http://cs-vm-02.cs.mtholyoke.edu:31600/api'
-			'http://localhost:31600/events',
-			);
-        console.log('Frontend Fetch: Response status:', res.status);
-        const data = await res.json();
-        console.log('Frontend Fetch: Data from server:', data);
-        return data;
-    } catch (error) {
-        console.error('Frontend Fetch: Error fetching data:', error);
-        throw error;
-    }
-}
+
 
