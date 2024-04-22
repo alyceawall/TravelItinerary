@@ -36,7 +36,7 @@ export function BackToHome({itinerary_id}) {
 	return (
 	<button 
 		className = "button" 
-		onClick = {() => router.push(fullURL)}
+		onClick = {() => router.push("/home/")}
 	>Back</button>
 	)
 }
