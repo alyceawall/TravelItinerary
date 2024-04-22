@@ -18,14 +18,24 @@ function NewItineraryScreen() {
 	return (
 
 		<div>
-			<h1>Create a new itinerary</h1>
+			<div className="header-banner">
+				<h1>Create a new itinerary</h1>
+			</div>
+			<div style={{paddingTop:"100px", padding:"25px"}}>
+				
+				<label style={{display:"block", marginBottom:"15px"}}>
+					Name: 
+					<input name = "name" style={{marginLeft:"10px"}}></input>
+				</label>
 
-			<p>Name:</p>
-			<input></input>
-			<p>Participants:</p>
-			<EventParticipantsManager eventParticipants={["JohnDoe"]}/>
+				<label>Participants:</label>
+				<div style={{backgroundColor:"var(--white)", marginBottom:"15px"}}>
+					<EventParticipantsManager eventParticipants={["JohnDoe"]}/>
+				
+				</div>
+				<SubmitButton/>
 
-			<SubmitButton/>
+			</div>
 		</div>
 	);
 	}

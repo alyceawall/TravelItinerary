@@ -80,21 +80,43 @@ function AddEvent() {
 	
 	}
 	return (
+
+		
 		<div>
-			<h1>Add new event</h1>
-			<form action = {onSubmit}>
-				<p>Title:</p>
-				<input name = "name"></input>
-				<p>Start date and time:</p>
-				<input type="datetime-local" name = "time_start"></input>
-				<p>End date and time:</p>
-				<input type="datetime-local" name = "time_end"></input>
-				<p>Address/location:</p>
-				<input name = "location"></input>
-				<p>Website for managing event:</p>
-				<input name = "link_to_site"></input>
-				<p>Other notes (optional):</p>
-				<textarea name = "desc"></textarea>
+			<div className="header-banner">
+				<h1>Create a new event</h1>
+			</div>
+			<form action = {onSubmit} style={{paddingTop:"100px", padding:"25px"}}>
+				<label style={{display:"block"}}>
+					Title: 
+					<input name = "name" style={{marginLeft:"10px"}}></input>
+				</label>
+				
+				<label style={{display:"block", paddingTop:"15px"}}>
+					Start date and time: 
+					<input type="datetime-local" name = "time_start" style={{marginLeft:"10px"}}></input>
+				</label>
+				
+				<label style={{display:"block", paddingTop:"15px"}}>
+					End date and time: 
+					<input type="datetime-local" name = "time_end" style={{marginLeft:"10px"}}></input>
+				</label>
+				
+				<label style={{display:"block", paddingTop:"15px"}}>
+					Address/location: 
+					<input name = "location" style={{marginLeft:"10px"}}></input>
+				</label>
+				
+				<label style={{display:"block", paddingTop:"15px"}}>
+					Website for managing event:
+					<input name = "link_to_site" style={{marginLeft:"10px"}}></input>
+				</label>
+				
+				<label style={{display:"block", paddingTop:"15px"}}>
+					Other notes:
+				</label>
+				<textarea name = "desc" style={{display:"block", marginBottom:"15px"}}></textarea>
+				
 				<SubmitButton itinerary_id = {itinerary_id}/>
 			</form>
 		</div>
