@@ -114,7 +114,7 @@ function TripEvent({eventName, eventDate, eventTime, eventText, eventLocation, e
 				<p>Address: {eventLocation}</p>
 				<p><i>{eventText}</i></p>
 				{/** Opens the link to the reservation, in a new tab */}
-				<p><a href={eventLink} target="_blank">Manage reservation on external website</a></p>
+				<p><a href={"https://"+eventLink} target="_blank">Manage reservation on external website</a></p>
 
 		</div>
 	);
