@@ -70,7 +70,7 @@ function HomeScreen() {
 			</div>
 
 			{/** The "add new" button */}
-			<AddNewItinerary/>
+			<AddNewItinerary user_id = {logged_in_user._id}/>
 			
 
 		</div>
