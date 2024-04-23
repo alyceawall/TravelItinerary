@@ -108,7 +108,6 @@ function TripEvent({eventName, eventDate, eventText, eventLocation, eventPartici
 
 	return (
 		<div className="itinerary-box" style={{paddingRight:"75px"}}>
-				<EditEvent itinerary_id = {currentItinerary._id}/>
 
 				<h2 style={{display: "inline-block", marginRight:"10px"}}>{eventName}</h2>
 				
