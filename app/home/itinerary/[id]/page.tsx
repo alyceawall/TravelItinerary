@@ -48,8 +48,7 @@ async function ItineraryScreen({currentItinerary}) {
 		eventsList.push(
 			<TripEvent
 				eventName = {event.name}
-				eventDate = {event.startDate}
-				eventTime = {"placeholder"}
+				eventDate = {event.time_start}
 				eventText = {event.desc}
 				eventLocation = {event.location}
 				eventParticipants = {event.participants}
@@ -100,7 +99,13 @@ async function ItineraryScreen({currentItinerary}) {
 	Displays a single event, containing salient information and a link to the rest of the data. 
 	The client can also manage participants. 
 */
-function TripEvent({eventName, eventDate, eventTime, eventText, eventLocation, eventParticipants, eventLink}) {
+function TripEvent({eventName, eventDate, eventText, eventLocation, eventParticipants, eventLink}) {
+
+	const dt = eventDate;
+	const eventDateNew = new Date(dt.slice(0,4), dt.slice(5,7), dt.slice(8,10),
+		); //"2024-03-13T21:44:11.113+00:00"
+	const eventTimeStr = dt.slice(11,13)+":"+dt.slice(14,16);
+
 	return (
 		<div className="itinerary-box" style={{paddingRight:"75px"}}>
 				<EditEvent itinerary_id = {currentItinerary._id}/>
@@ -110,7 +115,7 @@ function TripEvent({eventName, eventDate, eventTime, eventText, eventLocation, e
 				{/** Displays the participants, and allows the client to manage users */}
 				<EventParticipantsManager eventParticipants={participantsArray.map((user) => user.name)}/>
 
-				<p>Starts on {eventDate} at {eventTime}</p>
+				<p>Starts on {eventDateNew.toDateString()} at {eventTimeStr}</p>
 				<p>Address: {eventLocation}</p>
 				<p><i>{eventText}</i></p>
 				{/** Opens the link to the reservation, in a new tab */}

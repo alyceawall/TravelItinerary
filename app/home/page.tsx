@@ -84,6 +84,15 @@ function HomeScreen() {
 */
 function ItinerarySummaryBlock({id, tripTitle, startDate, endDate, participants}) {
 	//this relies of there being ONE unique title
+	
+
+	const sd = startDate;
+	const startDatePretty = new Date(sd.slice(0,4), sd.slice(5,7), sd.slice(8,10));
+	
+	const ed = endDate;
+	const endDatePretty = new Date(ed.slice(0,4), ed.slice(5,7), ed.slice(8,10));
+	
+
 	var nameBubbles = [];
 	for (const participant of participants){
 		nameBubbles.push(
@@ -96,7 +105,7 @@ function ItinerarySummaryBlock({id, tripTitle, startDate, endDate, participants}
 			<h2 style={{display: "inline-block", marginRight:"30px"}}>{tripTitle}</h2>
 				{nameBubbles}
 				<AddNameBubble onButtonClick={null}/> {/** TODO: Pass the function for when you click on the Add User button*/}
-			<p>{startDate} to {endDate}</p>
+			<p>{startDatePretty.toDateString()} to {endDatePretty.toDateString()}</p>
 			
 			<ViewItineraryButton itinerary_id = {id}/>
 
