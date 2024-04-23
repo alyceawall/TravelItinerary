@@ -15,3 +15,15 @@ export function BackToHome({itinerary_id}) {
 	>Back</button>
 	)
 }
+
+export function AddNewEvent({itinerary_id}) {
+	const router = useRouter();
+	var fullURL= "/home/itinerary/" + itinerary_id + "/search/new";
+	return (
+	<button 
+		className = "new-event-button" 
+		style={{bottom:"75px",left:"25%"}}
+		onClick = {() => router.push(fullURL)}
+	>Add to itinerary</button>
+	)
+}
