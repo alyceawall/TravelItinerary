@@ -10,8 +10,6 @@ var originItinerary;
 
 export default async function Page({ params }: { params: { id: string } }) {
 	const { id } = params;
-	itineraries = await getItineraryData();
-	originItinerary = itineraries.find((itinerary) => itinerary._id == id)
 	return (	
 		<NewItineraryScreen/>
   );
@@ -27,7 +25,7 @@ function NewItineraryScreen() {
 			<div className="header-banner">
 				<h1>Create a new itinerary</h1>
 			</div>
-			<div style={{paddingTop:"100px", padding:"25px"}}>
+			<div style={{padding:"25px", paddingTop:"100px"}}>
 				
 				<label style={{display:"block", marginBottom:"15px"}}>
 					Name: 
@@ -39,7 +37,7 @@ function NewItineraryScreen() {
 					<EventParticipantsManager eventParticipants={["JohnDoe"]}/>
 				
 				</div>
-				<SubmitButton itinerary_id = {originItinerary._id}/>
+				<SubmitButton/>
 
 			</div>
 		</div>

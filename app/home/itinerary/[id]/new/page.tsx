@@ -86,7 +86,7 @@ function AddEvent() {
 			<div className="header-banner">
 				<h1>Create a new event</h1>
 			</div>
-			<form action = {onSubmit} style={{paddingTop:"100px", padding:"25px"}}>
+			<form action = {onSubmit} style={{padding:"25px", paddingTop:"100px"}}>
 				<label style={{display:"block"}}>
 					Title: 
 					<input name = "name" style={{marginLeft:"10px"}}></input>
