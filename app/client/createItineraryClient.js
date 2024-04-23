@@ -5,7 +5,7 @@ import {useRouter} from 'next/navigation';
 import {ParticipantSelection, AddNameBubble, NameBubble} from './participantHelpers';
 
 
-export default function ViewItineraryButton() {
+export function SubmitButton() {
 	const router = useRouter();
 	var fullURL = "/home"
 	
@@ -14,5 +14,17 @@ export default function ViewItineraryButton() {
 		className = "button" 
 		onClick = {() => router.push(fullURL)}
 	>Submit</button>
+	)
+}
+export function CancelButton() {
+	const router = useRouter();
+	var fullURL = "/home"
+	
+	return (
+	<button 
+		className = "button"
+		style = {{display:"block",backgroundColor:"var(--mid)"}}
+		onClick = {() => router.push(fullURL)}
+	>Cancel</button>
 	)
 }

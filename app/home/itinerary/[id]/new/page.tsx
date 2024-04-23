@@ -5,7 +5,7 @@ import itineraryModel from '../../../../api/itineraryModel'
 //import EventParticipantsManager from '../../../client/eventParticipantsManager'
 //import ParticipantsBox from '../../../client/participantsBox'
 
-import SubmitButton from '../../../../client/editEventClient';
+import {SubmitButton, CancelButton} from '../../../../client/editEventClient';
 
 var itineraries;
 var originItinerary;
@@ -86,39 +86,44 @@ function AddEvent() {
 			<div className="header-banner">
 				<h1>Create a new event</h1>
 			</div>
-			<form action = {onSubmit} style={{padding:"25px", paddingTop:"100px"}}>
-				<label style={{display:"block"}}>
-					Title: 
-					<input name = "name" style={{marginLeft:"10px"}}></input>
-				</label>
+			<div style={{padding:"25px", paddingTop:"100px"}}>
+
+				<form action = {onSubmit}>
+					<label style={{display:"block"}}>
+						Title: 
+						<input name = "name" style={{marginLeft:"10px"}}></input>
+					</label>
+					
+					<label style={{display:"block", paddingTop:"15px"}}>
+						Start date and time: 
+						<input type="datetime-local" name = "time_start" style={{marginLeft:"10px"}}></input>
+					</label>
+					
+					<label style={{display:"block", paddingTop:"15px"}}>
+						End date and time: 
+						<input type="datetime-local" name = "time_end" style={{marginLeft:"10px"}}></input>
+					</label>
+					
+					<label style={{display:"block", paddingTop:"15px"}}>
+						Address/location: 
+						<input name = "location" style={{marginLeft:"10px"}}></input>
+					</label>
+					
+					<label style={{display:"block", paddingTop:"15px"}}>
+						Website for managing event:
+						<input name = "link_to_site" style={{marginLeft:"10px"}}></input>
+					</label>
+					
+					<label style={{display:"block", paddingTop:"15px"}}>
+						Other notes:
+					</label>
+					<textarea name = "desc" style={{display:"block", marginBottom:"15px"}}></textarea>
+					
+					<SubmitButton itinerary_id = {itinerary_id}/>
+				</form>
+				<CancelButton itinerary_id = {itinerary_id}/>
 				
-				<label style={{display:"block", paddingTop:"15px"}}>
-					Start date and time: 
-					<input type="datetime-local" name = "time_start" style={{marginLeft:"10px"}}></input>
-				</label>
-				
-				<label style={{display:"block", paddingTop:"15px"}}>
-					End date and time: 
-					<input type="datetime-local" name = "time_end" style={{marginLeft:"10px"}}></input>
-				</label>
-				
-				<label style={{display:"block", paddingTop:"15px"}}>
-					Address/location: 
-					<input name = "location" style={{marginLeft:"10px"}}></input>
-				</label>
-				
-				<label style={{display:"block", paddingTop:"15px"}}>
-					Website for managing event:
-					<input name = "link_to_site" style={{marginLeft:"10px"}}></input>
-				</label>
-				
-				<label style={{display:"block", paddingTop:"15px"}}>
-					Other notes:
-				</label>
-				<textarea name = "desc" style={{display:"block", marginBottom:"15px"}}></textarea>
-				
-				<SubmitButton itinerary_id = {itinerary_id}/>
-			</form>
+			</div>
 		</div>
 	);
 }

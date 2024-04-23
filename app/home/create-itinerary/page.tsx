@@ -3,13 +3,15 @@ import EventParticipantsManager from '../../client/eventParticipantsManager'
 import ParticipantsBox from '../../client/participantsBox'
 import {AddNameBubble, NameBubble} from '../../client/participantHelpers'
 
-import SubmitButton from '../../client/createItineraryClient'
+import {SubmitButton, CancelButton} from '../../client/createItineraryClient'
 
 var itineraries;
 var originItinerary;
 
 export default async function Page({ params }: { params: { id: string } }) {
 	const { id } = params;
+	itineraries = await getItineraryData();
+	originItinerary = itineraries.find((itinerary) => itinerary._id == id)
 	return (	
 		<NewItineraryScreen/>
   );
@@ -38,6 +40,7 @@ function NewItineraryScreen() {
 				
 				</div>
 				<SubmitButton/>
+				<CancelButton/>
 
 			</div>
 		</div>
