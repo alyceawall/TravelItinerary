@@ -53,7 +53,6 @@
   margin: 3px;
 	width: fit-content;
 	position:fixed;
-	left:25%;
 	font-size:20pt;
 	background: var(--small-bubble-color);
   color: var(--small-bubble-text);

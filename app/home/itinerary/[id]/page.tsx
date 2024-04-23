@@ -75,8 +75,10 @@ async function ItineraryScreen({currentItinerary}) {
 
 			{/** the footer, containing a button to add new, and a background to make it a little more visible */}
 			<div className="footer-banner">
-				<AddNewEvent itinerary_id = {itinerary_id}/>
-				<SearchForEvent itinerary_id = {itinerary_id}/>
+				<div style={{paddingLeft:"20%", paddingRight:"55%", position:"relative"}}>
+					<AddNewEvent itinerary_id = {itinerary_id}/>
+					<SearchForEvent itinerary_id = {itinerary_id}/>
+				</div>
 			</div>
 
 			<div>
@@ -112,7 +114,7 @@ function TripEvent({eventName, eventDate, eventTime, eventText, eventLocation, e
 				<p>Address: {eventLocation}</p>
 				<p><i>{eventText}</i></p>
 				{/** Opens the link to the reservation, in a new tab */}
-				<p><a href={eventLink} target="_blank">Manage reservation on external website</a></p>
+				<p><a href={"https://"+eventLink} target="_blank">Manage reservation on external website</a></p>
 
 		</div>
 	);
