@@ -56,17 +56,17 @@ function HomeScreen() {
   return (
 		<div>
 
-			{/** The header banner, containing just a title.*/}
-
-			<div className="header-banner">
-				<h1>My Itineraries</h1>
-			</div>
 
 			{/** The body of the page, containing all Itineraries.*/}
 
 			<div className="body-scroll">
 				{summaryBlocks}
 
+			</div>
+			{/** The header banner, containing just a title.*/}
+
+			<div className="header-banner">
+				<h1>My Itineraries</h1>
 			</div>
 
 			{/** The "add new" button */}

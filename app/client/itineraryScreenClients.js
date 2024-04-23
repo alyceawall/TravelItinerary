@@ -23,7 +23,7 @@ export function SearchForEvent({itinerary_id}) {
 	return (
 	<button 
 		className = "new-event-button" 
-		style={{bottom:"25px", left:"25%"}}
+		style={{bottom:"25px", left:"25%", transform:"translateX(4px)"}}
 		onClick = {() => router.push(fullURL)}
 	>Find an event</button>
 	)
